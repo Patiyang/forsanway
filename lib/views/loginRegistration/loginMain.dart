@@ -100,16 +100,13 @@ class _LoginMainState extends State<LoginMain> {
                                     onPressed: () {
                                       setState(() {
                                         obscureText = false;
-                                        
                                       });
-                                      
                                     })
                                 : IconButton(
                                     icon: Icon(Icons.lock_open),
                                     onPressed: () {
                                       setState(() {
                                         obscureText = true;
-                                    
                                       });
                                     }),
                             obscure: obscureText,
