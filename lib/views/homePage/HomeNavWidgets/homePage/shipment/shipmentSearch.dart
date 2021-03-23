@@ -228,7 +228,7 @@ class _ShipmentSearchState extends State<ShipmentSearch> {
                                         ),
                                         CustomText(text: singleCar.pickUpLocation, color: grey, fontWeight: FontWeight.w600, size: 19),
                                         Expanded(
-                                                                                  child: FittedBox(
+                                          child: FittedBox(
                                             fit: BoxFit.scaleDown,
                                             child: Row(
                                               children: carFeatures
@@ -310,8 +310,8 @@ class _ShipmentSearchState extends State<ShipmentSearch> {
                     return Center(child: CustomText(text: snapshot.error, fontWeight: FontWeight.w600, color: grey, size: 19));
                   }
                   return Container(
-                    // child: fl
-                  );
+                      // child: fl
+                      );
                 },
               ),
             ),

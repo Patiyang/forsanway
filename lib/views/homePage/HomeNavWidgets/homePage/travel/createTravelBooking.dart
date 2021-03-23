@@ -23,11 +23,15 @@ class _TravelBookingState extends State<TravelBooking> {
   List<String> titleType = [];
   List<String> titles = [];
 
+  bool termsAndConditions = false;
+
   List<String> passengers = [];
   final key = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: grey[100],
         iconTheme: IconThemeData(color: black),
@@ -38,16 +42,12 @@ class _TravelBookingState extends State<TravelBooking> {
           Expanded(
             child: Form(
               key: key,
-              child: ListView.separated(shrinkWrap: true,
+              child: ListView.separated(
+                shrinkWrap: true,
                 primary: false,
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                 itemCount: widget.passengerCount,
                 itemBuilder: (BuildContext context, int index) {
-                  // nameControllerList.clear();
-                  // identityControllerList.clear();
-                  // mobileControllerList.clear();
-                  // emailControllerList.clear();
-
                   passengers.add('Passenger ${index + 1}');
                   identities.clear();
                   titles.clear();
@@ -66,7 +66,8 @@ class _TravelBookingState extends State<TravelBooking> {
                   identities.add('Passport');
                   identities.add('NID');
                   identityType.add('');
-                  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: EdgeInsets.only(left: 40),
@@ -75,7 +76,12 @@ class _TravelBookingState extends State<TravelBooking> {
                         alignment: Alignment.centerLeft,
                         // width: MediaQuery.of(context).size.width - 100,
                         // height: 50,
-                        child: CustomText(text: passengers[index].toUpperCase(), color: white,size: 15,textAlign: TextAlign.end,),
+                        child: CustomText(
+                          text: passengers[index].toUpperCase(),
+                          color: white,
+                          size: 15,
+                          textAlign: TextAlign.end,
+                        ),
                       ),
                       Row(
                         children: [
@@ -219,6 +225,21 @@ class _TravelBookingState extends State<TravelBooking> {
               ),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                  value: termsAndConditions,
+                  onChanged: (val) {
+                    setState(() {
+                      termsAndConditions = val;
+                    });
+                    print(termsAndConditions);
+                  }),
+              CustomText(text: 'Terms and Conditions >>>>>', fontWeight: FontWeight.w700)
+            ],
+          ),
           CustomFlatButton(
             radius: 30,
             callback: () => createBooking(),
@@ -230,16 +251,26 @@ class _TravelBookingState extends State<TravelBooking> {
   }
 
   createBooking() {
-    if (key.currentState.validate()) {
-      print('validated');
-      for (int i = 0; i < widget.passengerCount; i++) {
-        print(i);
+    if (termsAndConditions == true) {
+      if (key.currentState.validate()) {
+        print('validated');
+        for (int i = 0; i < nameControllerList.length; i++) {
+          print(i.toString());
+        }
+      } else {
+        for (int i = 0; i < nameControllerList.length; i++) {
+          print(nameControllerList[i].text);
+        }
+        print('Not validated');
       }
     } else {
-      for (int i = 0; i < widget.passengerCount; i++) {
-        print(i);
-      }
-      print('Not validated');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: CustomText(
+        text: 'You need to accept the terms and conditions first',
+        textAlign: TextAlign.center,
+        color: red,
+        fontWeight: FontWeight.w700,
+      )));
     }
   }
 }

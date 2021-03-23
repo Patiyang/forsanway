@@ -160,6 +160,7 @@ class TravelSearchState extends State<TravelSearch> {
                       itemBuilder: (BuildContext context, int index) {
                         var singleCar = searchResult[index];
                         return Container(
+                          decoration: BoxDecoration(color: grey[200], borderRadius: BorderRadius.all(Radius.circular(10))),
                           height: 100,
                           width: MediaQuery.of(context).size.width,
                           child: Row(
@@ -214,49 +215,52 @@ class TravelSearchState extends State<TravelSearch> {
                                         ],
                                       ),
                                       CustomText(text: singleCar.pickUpLocation, color: grey, fontWeight: FontWeight.w600, size: 19),
-                                      FittedBox(fit: BoxFit.scaleDown,
-                                        child: Row(
-                                          children: carFeatures
-                                              .map(
-                                                (e) => Padding(
-                                                  padding: const EdgeInsets.only(right: 8.0),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      print(e.images['url']);
-                                                    },
-                                                    child: Container(
-                                                      height: 50,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(color: grey[300]),
-                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                          color: white),
+                                      Expanded(
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Row(
+                                            children: carFeatures
+                                                .map(
+                                                  (e) => Padding(
+                                                    padding: const EdgeInsets.only(right: 8.0),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        print(e.images['url']);
+                                                      },
                                                       child: Container(
-                                                        height: 47,
-                                                        width: 47,
+                                                        height: 50,
+                                                        width: 50,
                                                         decoration: BoxDecoration(
+                                                            border: Border.all(color: grey[300]),
                                                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                            color: widget.selectedFeatures.contains(e.id) ? green[300] : grey[200]),
-                                                        child: ClipRRect(
-                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                          child: Stack(
-                                                            children: [
-                                                              LoadingImages(),
-                                                              FadeInImage.memoryNetwork(
-                                                                  placeholder: kTransparentImage,
-                                                                  image: '${ApiUrls.imageUrl}' + e.images['url'],
-                                                                  fit: BoxFit.fill,
-                                                                  height: (MediaQuery.of(context).size.height * .3) / 2,
-                                                                  width: MediaQuery.of(context).size.width),
-                                                            ],
+                                                            color: white),
+                                                        child: Container(
+                                                          height: 47,
+                                                          width: 47,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                              color: widget.selectedFeatures.contains(e.id) ? green[300] : grey[200]),
+                                                          child: ClipRRect(
+                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                            child: Stack(
+                                                              children: [
+                                                                LoadingImages(),
+                                                                FadeInImage.memoryNetwork(
+                                                                    placeholder: kTransparentImage,
+                                                                    image: '${ApiUrls.imageUrl}' + e.images['url'],
+                                                                    fit: BoxFit.fill,
+                                                                    height: (MediaQuery.of(context).size.height * .3) / 2,
+                                                                    width: MediaQuery.of(context).size.width),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              )
-                                              .toList(),
+                                                )
+                                                .toList(),
+                                          ),
                                         ),
                                       )
                                     ],
