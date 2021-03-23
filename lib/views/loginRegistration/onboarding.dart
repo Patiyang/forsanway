@@ -131,7 +131,7 @@ class _OnBoardingState extends State<OnBoarding> {
                       } else {
                         pageController.nextPage(
                           duration: Duration(milliseconds: 1000),
-                          curve: Curves.easeInOutSine,
+                          curve: Curves.bounceOut,
                         );
                       }
                       // print(pageController.)
