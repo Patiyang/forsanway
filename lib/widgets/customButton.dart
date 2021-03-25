@@ -74,10 +74,13 @@ class CustomFlatButton extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              CustomText(
-                text: text ?? '',
-                color: textColor??white,
-                size: fontSize,
+              FittedBox(fit: BoxFit.scaleDown,
+                              child: CustomText(
+                  text: text ?? '',
+                  color: textColor??white,
+                  size: fontSize,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),

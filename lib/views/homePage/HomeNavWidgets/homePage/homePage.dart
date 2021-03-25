@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(width: 10),
                           Expanded(
-                            child: CustomFlatButton(
+                            child: CustomFlatButton(fontSize: 10,
                                 color: selectedPage == Pages.shipment ? blue : grey,
                                 height: 25,
                                 text: 'Shipment',

@@ -4,6 +4,7 @@ import 'package:forsanway/services/userServices.dart';
 import 'package:forsanway/views/homePage/homeNavigation.dart';
 import 'package:forsanway/views/loginRegistration/loginMain.dart';
 import 'package:forsanway/views/loginRegistration/onboarding.dart';
+import 'package:forsanway/widgets/customText.dart';
 import 'package:forsanway/widgets/loading.dart';
 import 'package:forsanway/widgets/styling.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,31 +32,39 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     checkLogin();
+    checkOnboarding();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return email == '' ?FutureBuilder(
-      future: checkOnboarding(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.data == true) {
-          return LoginMain();
-        }
-        if (snapshot.data == false) {
-          return OnBoarding();
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Loading(
-              color: white,
-              text: 'Loading...',
-            ),
-          );
-        }
-        return Container(color: white);
-      },
-    ): HomeNavigation();
+    return email == ''
+        ? FutureBuilder(
+            future: checkOnboarding(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              // print('snapshot data is ' + snapshot.data.toString());
+              if (snapshot.data == true) {
+                return LoginMain();
+              }
+              if (snapshot.data == false) {
+                return OnBoarding();
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Scaffold(
+                  body: Loading(color: white, text: 'Loading...'),
+                );
+              }
+              return Scaffold(
+                body: Center(
+                  child: Container(
+                    color: white,
+                    child: CustomText(text: snapshot.data.toString()),
+                  ),
+                ),
+              );
+            },
+          )
+        : HomeNavigation();
   }
 
   signIn(String email, String password, BuildContext context) async {
@@ -71,12 +80,12 @@ class _SignInState extends State<SignIn> {
     }
   }
 
-  Future<bool> checkOnboarding() async {
+  checkOnboarding() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       onboardingChecked = prefs.getBool('onboarding') ?? false;
     });
-
+    print(onboardingChecked);
     return onboardingChecked;
   }
 

@@ -27,6 +27,11 @@ class _LoginMainState extends State<LoginMain> {
   UserServices _userService = new UserServices();
   bool loading = false;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,

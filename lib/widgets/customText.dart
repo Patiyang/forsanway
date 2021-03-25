@@ -29,7 +29,7 @@ class CustomText extends StatelessWidget {
     return Text(
       text ?? '',
       textAlign: textAlign,
-      maxLines: maxLines ?? 2,
+      maxLines: maxLines ?? 1,
       overflow: overflow ?? TextOverflow.visible,
       style: TextStyle(
           fontSize: size, color: color ?? black, fontWeight: fontWeight ?? FontWeight.normal, letterSpacing: letterSpacing ?? 0, fontFamily: 'Helvetica'),
