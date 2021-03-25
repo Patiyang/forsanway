@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                                   height: (MediaQuery.of(context).size.height * .3) / 2,
                                   width: MediaQuery.of(context).size.width),
                               Padding(
-                                padding: const EdgeInsets.only(right: 198.0, top: 58),
+                                padding: const EdgeInsets.only(right: 198.0, top: 38),
                                 child: CustomText(
                                   text: destination.toUpperCase(),
                                   color: white,
@@ -219,43 +219,46 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: CustomFlatButton(
-                              color: selectedPage == Pages.travel ? blue : grey,
-                              height: 25,
-                              text: 'Travel',
-                              radius: 30,
-                              callback: () {
-                                setState(() {
-                                  selectedPage = Pages.travel;
-                                  destinationUrl = null;
-                                  originUrl = null;
-                                });
-                              },
-                              icon: Icons.location_on,
-                              width: 80),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: CustomFlatButton(
-                              color: selectedPage == Pages.shipment ? blue : grey,
-                              height: 25,
-                              text: 'Shipment',
-                              radius: 30,
-                              callback: () {
-                                setState(() {
-                                  selectedPage = Pages.shipment;
-                                  destinationUrl = null;
-                                  originUrl = null;
-                                });
-                              },
-                              icon: Icons.delivery_dining,
-                              width: 80),
-                        ),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: CustomFlatButton(
+                                color: selectedPage == Pages.travel ? blue : grey,
+                                height: 25,
+                                text: 'Travel',
+                                radius: 30,
+                                callback: () {
+                                  setState(() {
+                                    selectedPage = Pages.travel;
+                                    destinationUrl = null;
+                                    originUrl = null;
+                                  });
+                                },
+                                icon: Icons.location_on,
+                                width: 80),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: CustomFlatButton(
+                                color: selectedPage == Pages.shipment ? blue : grey,
+                                height: 25,
+                                text: 'Shipment',
+                                radius: 30,
+                                callback: () {
+                                  setState(() {
+                                    selectedPage = Pages.shipment;
+                                    destinationUrl = null;
+                                    originUrl = null;
+                                  });
+                                },
+                                icon: Icons.delivery_dining,
+                                width: 80),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

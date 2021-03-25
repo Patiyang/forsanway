@@ -17,8 +17,10 @@ class SelectedCar extends StatefulWidget {
   final TravelSearchResult selectedSearchResult;
   final List selectedFeatures;
   final int passengerCount;
+  final int tripId;
+  final String mainEmail;
 
-  const SelectedCar({Key key, this.selectedSearchResult, this.selectedFeatures, this.passengerCount}) : super(key: key);
+  const SelectedCar({Key key, this.selectedSearchResult, this.selectedFeatures, this.passengerCount, this.tripId, this.mainEmail}) : super(key: key);
   @override
   _SelectedCarState createState() => _SelectedCarState();
 }
@@ -145,7 +147,8 @@ class _SelectedCarState extends State<SelectedCar> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Stack(
                         children: [
@@ -158,8 +161,8 @@ class _SelectedCarState extends State<SelectedCar> {
                                     child: Container(
                                       height: 50,
                                       width: 50,
-                                      decoration:
-                                          BoxDecoration(border: Border.all(color: grey[300]), borderRadius: BorderRadius.all(Radius.circular(10)), color: white),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: grey[300]), borderRadius: BorderRadius.all(Radius.circular(10)), color: white),
                                       child: Container(
                                         height: 47,
                                         width: 47,
@@ -184,10 +187,12 @@ class _SelectedCarState extends State<SelectedCar> {
                                 .toList(),
                           ),
                           Visibility(
-                            visible: obtainingCarFeatures==true,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: CustomText(text: 'Fetching Services...',)))
+                              visible: obtainingCarFeatures == true,
+                              child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: CustomText(
+                                    text: 'Fetching Services...',
+                                  )))
                         ],
                       ),
                       // Spacer(),
@@ -207,6 +212,8 @@ class _SelectedCarState extends State<SelectedCar> {
                       callback: () => changeScreen(
                           context,
                           TravelBooking(
+                            mainEmail: widget.mainEmail,
+                            tripId: widget.tripId,
                             passengerCount: widget.passengerCount,
                           )),
                       radius: 30,
@@ -229,7 +236,7 @@ class _SelectedCarState extends State<SelectedCar> {
     });
     carFeatures = await travelService.carFeatures();
     setState(() {
-       obtainingCarFeatures = false;
+      obtainingCarFeatures = false;
     });
   }
 }

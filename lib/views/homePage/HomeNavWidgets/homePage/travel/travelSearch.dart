@@ -32,6 +32,7 @@ class TravelSearch extends StatefulWidget {
 class TravelSearchState extends State<TravelSearch> {
   CityServices cityServices = new CityServices();
   int curentIndex = 0;
+  int tripId = 0;
   List<CarFeaturesModel> carFeatures = [];
   TravelService travelService = new TravelService();
   @override
@@ -154,6 +155,10 @@ class TravelSearchState extends State<TravelSearch> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     List<TravelSearchResult> searchResult = snapshot.data;
+                    // for (int i = 0; i < searchResult.length; i++) {
+                    //   print(searchResult[i]);
+                    // }
+                    // print(searchResult[0].id);
                     return ListView.builder(
                       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
                       itemCount: searchResult.length,
@@ -275,6 +280,8 @@ class TravelSearchState extends State<TravelSearch> {
                                           selectedSearchResult: searchResult[index],
                                           selectedFeatures: widget.selectedFeatures,
                                           passengerCount: widget.passengerCount,
+                                          tripId: singleCar.id,
+                                          // mainEmail:  singleCar.,
                                         ),
                                       ),
                                   icon: Icon(

@@ -1,11 +1,14 @@
 class ApiUrls {
   static const String url = 'https://forsanway.com/api/';
-   static const String imageBaseUrl = 'https://www.forsanway.com/storage/';
+  static const String imageBaseUrl = 'https://www.forsanway.com/storage/';
   static const String registration = '$url' + 'user-register';
   static const String login = '$url' + 'login';
   static const String getCities = '$url' + 'cities';
   static const String mainFeatures = '$url' + 'front-main-features';
   static const String carFeatures = '$url' + 'front-features';
+  static const String tripBooking = '$url' + 'trip-booking';
+
+  // trip-booking
   static const String imageUrl = '$imageBaseUrl';
 
   String getTravelSearch(String date, String type, int origin, int destination, String capacity, int mainFeatureId, String features) {

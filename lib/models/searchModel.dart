@@ -1,4 +1,14 @@
 class TravelSearchResult {
+  static const TRIPID = 'trip_id';
+  static const PASSENGERCOUNT = 'number_of_passenger';
+  // static const MAINEMAIL = 'email';
+  static const PASSENGERNAMES = 'name';
+  static const PASSENGERTITLES = 'title';
+  static const PASSENGERIDENTITIES = 'identity_type';
+  static const IDENTITYNUMBERS = 'identity_number';
+  static const PASSENGERMOBILE = 'mobile';
+  static const PASSENGEREMAIL = 'email';
+
   final int id;
   final int userId;
   final String owner;
