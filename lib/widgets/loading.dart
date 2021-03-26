@@ -9,8 +9,10 @@ class Loading extends StatelessWidget {
   final Color color;
   final double height;
   final double size;
+  final Color spinkitColor;
+  final Color textColor;
 
-  const Loading({Key key, this.text, this.color, this.height, this.size}) : super(key: key);
+  const Loading({Key key, this.text, this.color, this.height, this.size, this.spinkitColor, this.textColor}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,9 +23,9 @@ class Loading extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SpinKitFadingGrid(color: black, size: size ?? 20),
+            SpinKitFadingGrid(color: spinkitColor ?? black, size: size ?? 20),
             text != null ? SizedBox(height: 10) : SizedBox.shrink(),
-            text != null ? CustomText(text: text ?? '', letterSpacing: .3, fontWeight: FontWeight.w500, size: 15) : SizedBox.shrink()
+            text != null ? CustomText(text: text ?? '', letterSpacing: .3, fontWeight: FontWeight.w500, size: 15, color: textColor??black) : SizedBox.shrink()
           ],
         ),
       ),

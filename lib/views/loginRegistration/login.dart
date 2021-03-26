@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forsanway/services/userServices.dart';
 import 'package:forsanway/views/homePage/homeNavigation.dart';
 import 'package:forsanway/views/loginRegistration/loginMain.dart';
@@ -15,78 +16,50 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final formKey = new GlobalKey<FormState>();
-  // --------------------------------SignIn FORM PARAMETERS-------------------------------
-  final emailController = new TextEditingController();
-  final passwordControler = new TextEditingController();
-
-  bool obscureText = true;
-  bool obscureConfirmText = true;
-  File profileImage;
   bool onboardingChecked = false;
   String email = '';
-// ----------------------------------REGISTER & CURRENT USER AUTH-------------------------------
-  UserServices _userService = new UserServices();
-  // FirebaseAuth _auth = FirebaseAuth.instance;
   bool loading = false;
+
   @override
   void initState() {
+    super.initState();
     checkLogin();
     checkOnboarding();
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return email == ''
-        ? FutureBuilder(
-            future: checkOnboarding(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              // print('snapshot data is ' + snapshot.data.toString());
-              if (snapshot.data == true) {
-                return LoginMain();
-              }
-              if (snapshot.data == false) {
-                return OnBoarding();
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Scaffold(
-                  body: Loading(color: white, text: 'Loading...'),
-                );
-              }
-              return Scaffold(
-                body: Center(
-                  child: Container(
-                    color: white,
-                    child: CustomText(text: snapshot.data.toString()),
-                  ),
-                ),
-              );
-            },
+        ? Stack(
+            children: [
+              onboardingChecked == false ? OnBoarding() : LoginMain(),
+              Visibility(
+                visible: loading == true,
+                child: Scaffold(
+                    body: Loading(
+                        text: 'Connecting. Please wait...',
+                        spinkitColor: white,
+                        color: blue,
+                        textColor: white)),
+              )
+            ],
           )
         : HomeNavigation();
   }
 
-  signIn(String email, String password, BuildContext context) async {
-    if (formKey.currentState.validate()) {
-      print('valid');
-      setState(() {
-        loading = true;
-      });
-      await _userService.logInUser(email, password, context);
-      setState(() {
-        loading = false;
-      });
-    }
-  }
-
   checkOnboarding() async {
+    setState(() {
+      loading = true;
+    });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       onboardingChecked = prefs.getBool('onboarding') ?? false;
+      loading = false;
     });
-    print(onboardingChecked);
-    return onboardingChecked;
+    print('THE VALUE OF ONBOARDING IS ' + onboardingChecked.toString());
+    setState(() {
+      loading = false;
+    });
   }
 
   checkLogin() async {

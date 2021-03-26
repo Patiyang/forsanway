@@ -9,6 +9,7 @@ Future<String>saveEmail(String emailAddress) async {
 saveOnboarding(bool onboarding) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('onboarding', onboarding);
+  
 }
 
 getOnboarding(String onboarding) async {

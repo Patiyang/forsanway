@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:forsanway/widgets/changeScreen.dart';
 import 'package:forsanway/widgets/customText.dart';
 import 'package:forsanway/widgets/sharedPrefs.dart';
 import 'package:forsanway/widgets/styling.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
+import 'loginMain.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -91,9 +94,10 @@ class _OnBoardingState extends State<OnBoarding> {
             padding: EdgeInsets.all(40),
             width: MediaQuery.of(context).size.width,
             child: GestureDetector(
-                onTap: () {
-                  saveOnboarding(true);
-                  changeScreenReplacement(context, SignIn());
+                onTap: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('onboarding', true);
+                  changeScreenReplacement(context, LoginMain());
                 },
                 child: CustomText(
                   text: 'Skip',
@@ -124,10 +128,11 @@ class _OnBoardingState extends State<OnBoarding> {
                 GestureDetector(
                     child: CustomText(text: 'Next', size: 20, color: white),
                     onTap: () async {
-                      print(currentIndex);
+                      Fluttertoast.showToast(msg: 'msg');
                       if (currentIndex == 2) {
-                        saveOnboarding(true);
-                        changeScreenReplacement(context, SignIn());
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('onboarding', true);
+                        changeScreenReplacement(context, LoginMain());
                       } else {
                         pageController.nextPage(
                           duration: Duration(milliseconds: 1000),
