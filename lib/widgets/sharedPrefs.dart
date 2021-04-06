@@ -6,6 +6,11 @@ Future<String>saveEmail(String emailAddress) async {
   return emailAddress;
 }
 
+saveLanguage(String language) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('language', language);
+  return language;
+}
 saveOnboarding(bool onboarding) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('onboarding', onboarding);

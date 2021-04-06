@@ -128,7 +128,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 GestureDetector(
                     child: CustomText(text: 'Next', size: 20, color: white),
                     onTap: () async {
-                      Fluttertoast.showToast(msg: 'msg');
+                      
                       if (currentIndex == 2) {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setBool('onboarding', true);

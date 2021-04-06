@@ -228,47 +228,44 @@ class _ShipmentSearchState extends State<ShipmentSearch> {
                                         ),
                                         CustomText(text: singleCar.pickUpLocation, color: grey, fontWeight: FontWeight.w600, size: 19),
                                         Expanded(
-                                          child: FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            child: Row(
-                                              children: carFeatures
-                                                  .map(
-                                                    (e) => Padding(
-                                                      padding: const EdgeInsets.only(right: 8.0),
+                                          child: Row(
+                                            children: carFeatures
+                                                .map(
+                                                  (e) => Padding(
+                                                    padding: const EdgeInsets.only(right: 8.0),
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(color: grey[300]),
+                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                          color: white),
                                                       child: Container(
-                                                        height: 50,
-                                                        width: 50,
+                                                        height: 47,
+                                                        width: 47,
                                                         decoration: BoxDecoration(
-                                                            border: Border.all(color: grey[300]),
                                                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                            color: white),
-                                                        child: Container(
-                                                          height: 47,
-                                                          width: 47,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                              color: individualCarFeatures.contains(e.id) ? green[300] : grey[200]),
-                                                          child: Center(
-                                                              child: ClipRRect(
-                                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                            child: Stack(
-                                                              children: [
-                                                                LoadingImages(),
-                                                                FadeInImage.memoryNetwork(
-                                                                    placeholder: kTransparentImage,
-                                                                    image: '${ApiUrls.imageUrl}' + e.images['url'],
-                                                                    fit: BoxFit.fill,
-                                                                    height: 200,
-                                                                    width: MediaQuery.of(context).size.width),
-                                                              ],
-                                                            ),
-                                                          )),
-                                                        ),
+                                                            color: individualCarFeatures.contains(e.id) ? green[300] : grey[200]),
+                                                        child: Center(
+                                                            child: ClipRRect(
+                                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                          child: Stack(
+                                                            children: [
+                                                              LoadingImages(),
+                                                              FadeInImage.memoryNetwork(
+                                                                  placeholder: kTransparentImage,
+                                                                  image: '${ApiUrls.imageUrl}' + e.images['url'],
+                                                                  fit: BoxFit.fill,
+                                                                  height: 200,
+                                                                  width: MediaQuery.of(context).size.width),
+                                                            ],
+                                                          ),
+                                                        )),
                                                       ),
                                                     ),
-                                                  )
-                                                  .toList(),
-                                            ),
+                                                  ),
+                                                )
+                                                .toList(),
                                           ),
                                         )
                                       ],

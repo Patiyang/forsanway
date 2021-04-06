@@ -224,10 +224,6 @@ class _TravelState extends State<Travel> {
                                 selectedFeatures =
                                     featuresId.toString().replaceAll(RegExp(r' '), '').replaceAll(RegExp(r'\['), '').replaceAll(RegExp(r'\]'), '');
                               });
-
-                              print(carFeature.images['url']);
-
-                              // print(selectedServices);
                             },
                             child: Container(
                               height: 50,
@@ -244,7 +240,7 @@ class _TravelState extends State<Travel> {
                                     borderRadius: BorderRadius.all(Radius.circular(10)),
                                     child: Stack(
                                       children: [
-                                        LoadingImages(),
+                                        // LoadingImages(),
                                         FadeInImage.memoryNetwork(
                                             placeholder: kTransparentImage,
                                             image: '${ApiUrls.imageUrl}' + carFeature.images['url'],
@@ -355,9 +351,8 @@ class _TravelState extends State<Travel> {
                                     onTap: () {
                                       if (widget.destination.length > 0 && widget.origin.length > 0) {
                                         Navigator.pop(context);
-                                        changeScreen(
-                                            context,
-                                            TravelSearch(
+
+                                        Navigator.push(context, ScaleRoute(page: TravelSearch(
                                               travelResults: travelService.getTravelSearch('2020-12-13', e.id.toString(), widget.originId, widget.destinationId,
                                                   passengerCount.toString(), e.id, selectedFeatures),
                                               origin: widget.origin,
@@ -366,7 +361,19 @@ class _TravelState extends State<Travel> {
                                               tripDate: tripDate,
                                               selectedFeatures: featuresId,
                                               passengerCount: passengerCount,
-                                            ));
+                                            )));
+                                        // changeScreen(
+                                        //     context,
+                                        //     TravelSearch(
+                                        //       travelResults: travelService.getTravelSearch('2020-12-13', e.id.toString(), widget.originId, widget.destinationId,
+                                        //           passengerCount.toString(), e.id, selectedFeatures),
+                                        //       origin: widget.origin,
+                                        //       destination: widget.destination,
+                                        //       destinationImages: widget.destinationImages,
+                                        //       tripDate: tripDate,
+                                        //       selectedFeatures: featuresId,
+                                        //       passengerCount: passengerCount,
+                                        //     ));
                                       } else {
                                         Navigator.pop(context);
                                         Fluttertoast.showToast(msg: 'You need to select the origin & destination');

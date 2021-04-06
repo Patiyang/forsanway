@@ -1,14 +1,8 @@
 class TravelSearchResult {
-  static const TRIPID = 'trip_id';
-  static const PASSENGERCOUNT = 'number_of_passenger';
-  // static const MAINEMAIL = 'email';
-  static const PASSENGERNAMES = 'name';
-  static const PASSENGERTITLES = 'title';
-  static const PASSENGERIDENTITIES = 'identity_type';
-  static const IDENTITYNUMBERS = 'identity_number';
-  static const PASSENGERMOBILE = 'mobile';
-  static const PASSENGEREMAIL = 'email';
 
+
+
+//travelSearch variables
   final int id;
   final int userId;
   final String owner;
@@ -19,6 +13,7 @@ class TravelSearchResult {
   final List car;
   final List carFeatures;
   final String pickUpLocation;
+
 
   TravelSearchResult(
       {this.id, this.userId, this.owner, this.car, this.imageUrl, this.imageList, this.carName, this.description, this.carFeatures, this.pickUpLocation});
@@ -35,6 +30,9 @@ class TravelSearchResult {
         carFeatures: json['car'][0]['car_features'],
         pickUpLocation: json['pickup_location'],
       );
+
+
+   
 }
 
 class ShipmentSearchResult {

@@ -282,7 +282,10 @@ class _TravelBookingState extends State<TravelBooking> {
               )
             ],
           ),
-          Visibility(visible: false, child: Loading(text: 'Uploading your data'))
+          Visibility(
+            visible: loading == true,
+            child: Loading(text: 'Uploading your data'),
+          )
         ],
       ),
     );
@@ -304,30 +307,24 @@ class _TravelBookingState extends State<TravelBooking> {
           mobileNumbers.add(mobileControllerList[i].text);
           passengerEmails.add(emailControllerList[i].text);
         }
-        print(dBnames);
-        print(idNumbers);
-        print(mobileNumbers);
-        print(passengerEmails);
-        await travelService.createTravelBooking(
+        await travelService
+            .createTravelBooking(
           widget.tripId,
           widget.passengerCount,
           dBnames,
           passengerTitles,
           passengerIdentities,
-          identities,
+          idNumbers,
           mobileNumbers,
           passengerEmails,
+          context
         )
-            // .
-            //     onError((error, stackTrace) {
-            //   print(error);
-            //   setState(() {
-            //     loading = false;
-            //   });
-            //   return null;
-            // })
-
-            ;
+            .catchError((onError) {
+          print(onError.toString());
+          setState(() {
+            loading = false;
+          });
+        });
         setState(() {
           loading = false;
         });

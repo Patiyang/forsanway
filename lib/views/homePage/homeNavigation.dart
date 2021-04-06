@@ -18,8 +18,9 @@ enum Pages { settings, profile, home, cart, orders }
 // ignore: must_be_immutable
 class HomeNavigation extends StatefulWidget {
   String appBarTitle;
-
-  HomeNavigation({Key key, this.appBarTitle}) : super(key: key);
+  int currentIndex;
+ 
+  HomeNavigation({Key key, this.appBarTitle, this.currentIndex}) : super(key: key);
   @override
   _HomeNavigationState createState() => _HomeNavigationState();
 }
@@ -34,10 +35,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
     BottomNavigationBarItem(
         icon: Container(
             decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [BoxShadow(color: blue, blurRadius: 3, spreadRadius: 15)]),
-            child: Icon(
-              Icons.drive_eta,
-              color: black,
-            )),
+            child: Image.asset('assets/images/steeringWheel.png', height: 27,width: 27,)),
         title: SizedBox.shrink()),
     BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), title: CustomText(text: 'Cart')),
     BottomNavigationBarItem(icon: Icon(Icons.store_mall_directory_outlined), title: CustomText(text: 'Orders'))
@@ -45,17 +43,17 @@ class _HomeNavigationState extends State<HomeNavigation> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 2;
+    // currentIndex = 2;
     widget.appBarTitle = 'Home';
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: blue,
-          title: CustomText(text: widget.appBarTitle, color: white),
+          title: CustomText(text: appBarTitles[widget.currentIndex??2], color: white),
           actions: [IconButton(icon: Icon(Icons.exit_to_app), onPressed: () => showLogoutDialog())],
         ),
         drawer: Drawer(
@@ -69,19 +67,19 @@ class _HomeNavigationState extends State<HomeNavigation> {
             ],
           ),
         ),
-        body: selectedScreen(),
+        body: tabs[widget.currentIndex ?? 2],
         bottomNavigationBar: BottomNavigationBar(
           unselectedIconTheme: IconThemeData(color: blue, size: 17),
           selectedIconTheme: IconThemeData(color: blue),
           showUnselectedLabels: true,
           items: bottomNavBarItems,
-          currentIndex: currentIndex,
+          currentIndex: widget.currentIndex ?? 2,
           onTap: (int index) {
             setState(() {
-              currentIndex = index;
+              widget.currentIndex = index;
             });
             selectedPage();
-            togglePages();
+            // togglePages();
           },
         ),
       ),
@@ -89,7 +87,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
   }
 
   dynamic selectedPage() {
-    switch (currentIndex) {
+    switch (widget.currentIndex) {
       case 0:
         return widget.appBarTitle = 'Settings';
         break;
@@ -111,6 +109,8 @@ class _HomeNavigationState extends State<HomeNavigation> {
     }
   }
 
+  List<Widget> tabs = [Settings(), Profile(), HomePage(), Cart(), Orders()];
+  List<String> appBarTitles = ['Settings', 'Profile', 'Home', 'Cart', 'Orders', 'Home'];
   Widget selectedScreen() {
     switch (screens) {
       case Pages.settings:

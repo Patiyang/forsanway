@@ -24,42 +24,36 @@ class _SignInState extends State<SignIn> {
   void initState() {
     super.initState();
     checkLogin();
-    checkOnboarding();
+   
   }
 
   @override
   Widget build(BuildContext context) {
     return email == ''
-        ? Stack(
-            children: [
-              onboardingChecked == false ? OnBoarding() : LoginMain(),
-              Visibility(
-                visible: loading == true,
-                child: Scaffold(
-                    body: Loading(
-                        text: 'Connecting. Please wait...',
-                        spinkitColor: white,
-                        color: blue,
-                        textColor: white)),
-              )
-            ],
+        ? Scaffold(
+            body: FutureBuilder(
+              future: checkOnboarding(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  onboardingChecked = snapshot.data;
+                  return onboardingChecked == true ? LoginMain() : OnBoarding();
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Loading(text: 'Connecting. Please wait...', spinkitColor: white, color: blue, textColor: white);
+                }
+                return Container();
+              },
+            ),
           )
         : HomeNavigation();
   }
 
-  checkOnboarding() async {
-    setState(() {
-      loading = true;
-    });
+  Future<bool> checkOnboarding() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       onboardingChecked = prefs.getBool('onboarding') ?? false;
-      loading = false;
     });
-    print('THE VALUE OF ONBOARDING IS ' + onboardingChecked.toString());
-    setState(() {
-      loading = false;
-    });
+    return onboardingChecked;
   }
 
   checkLogin() async {
