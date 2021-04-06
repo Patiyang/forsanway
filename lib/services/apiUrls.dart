@@ -1,5 +1,6 @@
 class ApiUrls {
   static const String url = 'https://forsanway.com/api/';
+  static const String loginUrl = 'http://mobile.forsanway.com/public/api/';
   static const String imageBaseUrl = 'https://www.forsanway.com/storage/';
   static const String registration = '$url' + 'user-register';
   static const String login = '$url' + 'login';

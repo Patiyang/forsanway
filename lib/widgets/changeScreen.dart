@@ -5,7 +5,7 @@ changeScreen(BuildContext context, Widget widget) {
 }
 
 void changeScreenReplacement(BuildContext context, Widget widget) {
-  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget));
+  Navigator.pushReplacement(context, ScaleRoute(page: widget));
 }
 
 class ScaleRoute extends PageRouteBuilder {

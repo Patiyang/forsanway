@@ -18,6 +18,7 @@ class LoginMain extends StatefulWidget {
 
 class _LoginMainState extends State<LoginMain> {
   final formKey = new GlobalKey<FormState>();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
   // --------------------------------SignIn FORM PARAMETERS-------------------------------
   final emailController = new TextEditingController();
   final passwordControler = new TextEditingController();
@@ -31,6 +32,7 @@ class _LoginMainState extends State<LoginMain> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,7 +175,17 @@ class _LoginMainState extends State<LoginMain> {
       setState(() {
         loading = true;
       });
-      await _userService.logInUser(email, password, context);
+      await _userService.logInUser(email, password, context).onError((error, stackTrace) {
+        print(error.toString());
+        if (error != null) {
+          Future.delayed(Duration(seconds: 15));
+          setState(() {
+            loading = false;
+          });
+          // Fluttertoast.showToast(msg: 'Error encountered')
+          
+        }
+      });
       setState(() {
         loading = false;
       });

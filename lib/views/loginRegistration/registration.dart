@@ -124,7 +124,7 @@ class _RegistrationState extends State<Registration> {
                                 child: Container(
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), color: grey[300]),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                                    padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8),
                                     child: DropdownButtonHideUnderline(
                                       child: FittedBox(
                                         fit: BoxFit.scaleDown,
